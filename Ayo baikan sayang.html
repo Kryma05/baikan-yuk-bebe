@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Kamu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            touch-action: manipulation; /* Optimasi sentuhan HP */
+        }
+
+        body {
+            background-color: #fce4ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 85%;
+            max-width: 350px;
+            height: 450px;
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .layer h2 { color: #d81b60; margin-bottom: 15px; font-size: 1.5rem; }
+        .layer p { color: #555; line-height: 1.5; font-size: 1rem; }
+
+        .instruction {
+            font-size: 11px;
+            color: #ff80ab;
+            margin-top: 20px;
+            font-weight: bold;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Layer Z-Index */
+        #layer1 { z-index: 5; }
+        #layer2 { z-index: 4; }
+        #layer3 { z-index: 3; }
+        #last-layer { z-index: 2; background: #fffcfc; }
+
+        .hidden {
+            transform: translateY(-150%) rotate(15deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        #btn-yes { background-color: #ff4081; color: white; min-width: 100px; }
+        #btn-no { 
+            background-color: #eeeeee; 
+            color: #777; 
+            min-width: 100px;
+            position: relative;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="layer" id="layer1" onclick="nextLayer('layer1')">
+            <h2>Hai Sayangku Jeanne cintaaa... 👋</h2>
+            <p>Maaf ya kalau akhir-akhir ini aku nyebelin dan bikin kamu sedih dan ngerasa sakit hati.</p>
+            <p class="instruction">Tap layarnya ya...</p>
+        </div>
+
+        <div class="layer" id="layer2" onclick="nextLayer('layer2')">
+            <h2>Dede sadarrr... 😔</h2>
+            <p>Me sadar me trlalu fokus sama me sndiri sampai kurang tau terima kasih. me sebenarnya tau tpi me sering lupa betapa besarnya apa yang kmu berikan kepada aku sayangkuu.</p>
+            <p class="instruction">Tap lagi...</p>
+        </div>
+
+        <div class="layer" id="layer3" onclick="nextLayer('layer3')">
+            <h2>Bebe jangan marah lagiii? 🥀</h2>
+            <p>Aku bener-bener mau baikan aja bebeee dan lebih hargain kamu. Kita baikan ya? Plcccc...</p>
+            <p class="instruction">Terakhir, tap lagi...</p>
+        </div>
+
+        <div class="layer" id="last-layer">
+            <h2>BEBEEEE BAIKANN YUKKK? ❤️</h2>
+            <p>Dede bakal berusaha bebeee untuk lebih tau terima kasih dan nggak mentingin diri sndiri lagi.
+                (coba aja klo bsa nolak hehe)
+            </p>
+            
+            <div class="btn-container">
+                <button id="btn-yes" onclick="celebrate()">Mau</button>
+                <button id="btn-no" onmouseover="moveButton()" ontouchstart="moveButton()">Nggak</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextLayer(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('btn-no');
+            
+            // Batasi area lari tombol agar tidak keluar layar HP
+            const padding = 50;
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        function celebrate() {
+            const lastLayer = document.getElementById('last-layer');
+            lastLayer.innerHTML = `
+                <h2 style="font-size: 2rem;">Wofyuuu bebeee mwahhh! ❤️</h2>
+                <p>Makasih udah dimaafin yaa cintaku ya sayangkuu hehehhehe. dede sayang banget sama kamu cayanggg luvvv mwahhhh!</p>
+                <div style="font-size: 60px; margin-top: 20px;">🌹✨🥰</div>
+            `;
+        }
+    </script>
+</body>
+</html>
